@@ -1,7 +1,30 @@
+
 import java.util.*;
+
 class codeGenerator
 {
-    void generateMainFunctionHeader(String function_name, String function_return_type, String[] function_arguments)
+    private String function_name;
+    private String function_return_type;
+    private String[] function_arguments;
+
+    public codeGenerator(String function_name, String function_return_type, String[] function_arguments)
+    {
+        this.function_name = function_name;
+        this.function_return_type = function_return_type;
+        this.function_arguments = function_arguments;
+
+    }
+    public String getCode ()
+    {
+        generateMainFunctionHeader();
+        generateMainFunctionBody();
+	    generateTestCaseFunctionHeader();
+	    generateTestCaseFunctionBody();
+	    generateTestSuiteFunctionHeader();
+	    generateTestSuiteFunctionBody();
+        return "";
+    }
+    void generateMainFunctionHeader( )
     {
         System.out.print(function_return_type + " " + function_name + "(" );
         
@@ -29,7 +52,7 @@ class codeGenerator
     }
     
     
-    void generateMainFunctionBody(String function_name, String function_return_type, String[] function_arguments)
+    void generateMainFunctionBody()
     {
         System.out.println("");
         System.out.print("    " + "boolean result = false;");
@@ -41,7 +64,7 @@ class codeGenerator
     
     
     
-    void generateTestCaseFunctionHeader(String function_name, String function_return_type, String[] function_arguments)
+    void generateTestCaseFunctionHeader()
     {
         System.out.println("");
         System.out.print("void test_" + function_name + "(");
@@ -64,7 +87,7 @@ class codeGenerator
     
     
     
-    void generateTestCaseFunctionBody(String function_name, String function_return_type, String[] function_arguments)
+    void generateTestCaseFunctionBody()
     {
         System.out.println("");
         System.out.print("    " + function_return_type + " actual_result = " + function_name + "(");
@@ -128,7 +151,7 @@ class codeGenerator
     
     
     
-    void generateTestSuiteFunctionHeader(String function_name)
+    void generateTestSuiteFunctionHeader()
     {
         System.out.println("");
         System.out.print("void suit_test_" + function_name + "()");
@@ -138,7 +161,7 @@ class codeGenerator
     
     
     
-    void generateTestSuiteFunctionBody(String function_name)
+    void generateTestSuiteFunctionBody()
     {
         System.out.println("");
         System.out.print("    test_" + function_name + "(0, \"Hello\", 0.0, false);");
@@ -178,13 +201,8 @@ public class CG
         System.out.println("");
         System.out.println("Your code is: ");
         System.out.println("");
-	    codeGenerator cgen = new codeGenerator();
-	    cgen.generateMainFunctionHeader(fname,rettype,arguments);
-	    cgen.generateMainFunctionBody(fname,rettype,arguments);
-	    cgen.generateTestCaseFunctionHeader(fname,rettype,arguments);
-	    cgen.generateTestCaseFunctionBody(fname,rettype,arguments);
-	    cgen.generateTestSuiteFunctionHeader(fname);
-	    cgen.generateTestSuiteFunctionBody(fname);
+        codeGenerator cgen = new codeGenerator(fname,rettype,arguments);
+        String code = cgen.getCode();
 	}
 }
 
